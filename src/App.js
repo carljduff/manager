@@ -1,10 +1,17 @@
-
+import React, { useContext } from "react";
+import Dash from "./components/Dash";
+import Projects from "./components/Projects";
+import "./css/dash.css";
+import { GlobalProvider } from "./GlobalState";
 
 function App() {
+  
+
   return (
-    <div className="App">
-    TEST 1 2 3 
-    </div>
+    <GlobalProvider>
+    {/* <Dash/> */}
+    <Projects/>
+    </GlobalProvider>
   );
 }
 
