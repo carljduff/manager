@@ -1,16 +1,27 @@
 import React, { useContext } from "react";
-import Dash from "./components/Dash";
+import NavBar from "./components/NavBar";
 import Projects from "./components/Projects";
-import "./css/dash.css";
+import "./css/nav.css";
 import { GlobalProvider } from "./GlobalState";
+import { Routes, Route, } from 'react-router-dom';
+import Home from "./pages/Home";
+import Project from "./components/Project";
 
 function App() {
   
 
   return (
     <GlobalProvider>
-    {/* <Dash/> */}
-    <Projects/>
+          <NavBar/>
+   
+          <div className="wrapper">
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="projects" element={<Projects/>} />
+          <Route path="project/:title" element={<Project/>} />
+        </Routes>
+          </div>
+     
     </GlobalProvider>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
 import axios from 'axios';
-
+import { API_URL } from "./constants";
 const initialState = {
     posts: [],
     projects: [],
@@ -14,11 +14,8 @@ const GlobalProvider = ({children}) => {
 
     useEffect(() => {
         const getData = async () => {
-            const projectResponse = await axios.get("https://8000-carljduff-qabackend-i398f4bi4cn.ws-us86.gitpod.io/api/projects/")
-            // .then((response) => {
-            //     setState({projects: response.data})
-            // })
-            const postResponse = await axios.get('https://8000-carljduff-qabackend-i398f4bi4cn.ws-us86.gitpod.io/api/posts/')
+            const projectResponse = await axios.get(`${API_URL}/projects`)
+            const postResponse = await axios.get(`${API_URL}/posts`)
 
             setState({
                projects: projectResponse.data, posts: postResponse.data
