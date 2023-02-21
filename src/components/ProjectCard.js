@@ -14,7 +14,7 @@ const ProjectCard = ({id, title, jira, mockup, conf}) => {
                 <p>Mockup: {mockup} </p>
                 <p>Confluence: {conf} </p>
             </Card.Text>
-            <Link to={`/project/${title}`}><Button variant="primary">View Project</Button></Link>
+            <Link to={`/project/${id}`}><Button variant="primary">View Project</Button></Link>
             </Card.Body>
       </Card>
 

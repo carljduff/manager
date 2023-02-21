@@ -16,9 +16,9 @@ const GlobalProvider = ({children}) => {
         const getData = async () => {
             const projectResponse = await axios.get(`${API_URL}/projects`)
             const postResponse = await axios.get(`${API_URL}/posts`)
-
+            const ticketResponse = await axios.get(`${API_URL}/tickets`)
             setState({
-               projects: projectResponse.data, posts: postResponse.data
+               projects: projectResponse.data, posts: postResponse.data, tickets: ticketResponse.data
             })
         } 
         getData()
