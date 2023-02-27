@@ -1,17 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Context } from "../GlobalState";
 import PostCard from "./PostCard";
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import Modal from 'react-bootstrap/Modal';
+import TextEditor from "./TextEditor";
 
 const Post = () => {
     const { postID } = useParams();
     const { state, addTicket } = useContext(Context);
     const tickets = state.tickets;
-
+    const editorRef = useRef(null);
     const ticketList = tickets.filter((item) => item.post === parseInt(postID));
-
+    let textData = editorRef.current;
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -20,7 +22,7 @@ const Post = () => {
         title: "",
         link: "",
         reference: "",
-        description: "",
+        description: textData,
         category: 1,
         post: parseInt(postID)
       });
@@ -38,7 +40,7 @@ const Post = () => {
         eventFormData.append("title", formValue.title);
         eventFormData.append("link", formValue.link);
         eventFormData.append("reference", formValue.reference);
-        eventFormData.append("description", formValue.description);
+        eventFormData.append("description", textData.getContent({format : 'text'}));
         eventFormData.append("category", formValue.category);
         eventFormData.append("post", formValue.post);
          
@@ -54,8 +56,32 @@ const Post = () => {
     return(
         <>
             <Button onClick={handleShow} className='delete'>Add Ticket</Button>
-        
-            <Offcanvas show={show} onHide={handleClose}>
+            <Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add New Ticket</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>  
+            <form onSubmit={handleSubmit}>
+                <label>Ticket #:</label>
+                <input type="text" name="title" value={formValue.title} onChange={handleChange} />
+
+                <label>Ticket Link:</label>
+                <input type="text" name="link" value={formValue.link} onChange={handleChange} />
+
+                {/* <label>Ticket Summary:</label>
+                <input type="text" name="description" value={formValue.description} onChange={handleChange} /> */}
+
+                <label>Reference:</label>
+                <input type="text" name="reference" value={formValue.reference} onChange={handleChange} />
+                <label>Notes:</label>
+                {/* <input type="text" name="description" value={formValue.description} onChange={handleChange} /> */}
+                <TextEditor editorRef={editorRef} />
+                <input type="submit"/>
+
+            </form>
+            </Modal.Body>
+      </Modal>
+            {/* <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Add A New Ticket</Offcanvas.Title>
         </Offcanvas.Header>
@@ -75,7 +101,7 @@ const Post = () => {
             </form>
           
         </Offcanvas.Body>
-      </Offcanvas>
+      </Offcanvas> */}
         
         
         <div>

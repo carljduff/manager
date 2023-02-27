@@ -17,6 +17,7 @@ const PostCard = ({postID, id, title, link, reference, desc}) => {
             <Card.Text>LINK: {link}</Card.Text>
             <Card.Text>POSTID: {postID} </Card.Text>
             <Card.Text>reference: {reference} </Card.Text>
+            <Card.Text>Notes: {desc} </Card.Text>
          <Button onClick={() => deleteTicket(id)} className='delete'>Delete</Button>
             </Card.Body>
       </Card>

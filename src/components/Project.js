@@ -12,6 +12,7 @@ const Project = () => {
     const navigate = useNavigate();
     let postID = "";
     let projectPosts = posts.filter((item) => item.project === parseInt(projectID));
+    
 
     const obj = {
       title: "",
