@@ -1,78 +1,39 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Context } from "../GlobalState";
 import { useParams, Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import { useNavigate } from "react-router-dom";
+import "../css/project.css";
 
 const Project = () => {
-    const { state, addPost } = useContext(Context);
+    const { state, addPost, deletePost } = useContext(Context);
     const posts = state.posts;
     const { projectID } = useParams();
+    const navigate = useNavigate();
+    let postID = "";
+    let projectPosts = posts.filter((item) => item.project === parseInt(projectID));
 
-    
-    let projectPosts = posts.filter((item) => item.project == projectID);
+    const obj = {
+      title: "",
+      project: parseInt(projectID)
+    };
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const [formValue, setFormValue] = useState({
-        title: "",
-        project: parseInt(projectID)
-        // guests: [],
-      });
-    
-      const handleChange = (e) => {
-        setFormValue({
-          ...formValue,
-          [e.target.name]: e.target.value,
-        });
-      };
-
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        // navigate(-1)
-        const eventFormData = new FormData();
-        eventFormData.append("title", formValue.title);
-        eventFormData.append("project", formValue.project);
-     
-        // eventFormData.append("guests", formValue.guests);
-    
-        try {
-            addPost(eventFormData);
-            handleClose();
-        } catch (error) {
-          console.log(error);
-          
-        }
-
-      };
+    const addPostHandler = () => {
+      addPost(obj);
+      navigate(`/post/${postID}`)
+    }
    
     return(
         <>
-        <Button variant="primary" onClick={handleShow}>
+        <Button variant="primary" onClick={addPostHandler}>
         Add Post
       </Button>
 
-      <Offcanvas show={show} onHide={handleClose}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Add A New Post</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-            <form onSubmit={handleSubmit}>
-                <label>Project Title:</label>
-                <input type="text" name="title" value={formValue.title} onChange={handleChange} />
-                
-                <input type="submit"/>
-
-            </form>
-          
-        </Offcanvas.Body>
-      </Offcanvas>
-        
         <div>
             <ul>
            {projectPosts.map((item) => {
-            return <li><Link key={item.id} to={`/post/${item.id}`}>{item.date}</Link></li>
+            postID = item.id;
+            return <li key={item.id}><Link to={`/post/${item.id}`}>{item.date}</Link> <span onClick={() => deletePost(item.id)}><i className="fa-solid fa-trash-can icons"></i></span></li>
            })}
 
             </ul>

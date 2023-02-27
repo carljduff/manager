@@ -1,6 +1,8 @@
 import React, { useState, useEffect, createContext } from "react";
 import axios from 'axios';
 import { API_URL } from "./constants";
+
+
 const initialState = {
     posts: [],
     projects: [],
@@ -38,11 +40,27 @@ const GlobalProvider = ({children}) => {
         }));
     }
 
+    async function deleteProject(id) {
+        await axios.delete(`${API_URL}/projects/${id}`);
+        setState((prevState) => ({
+            ...prevState,
+            projects: state.projects.filter((item) => item.id !== id),
+        }));
+    }
+
     const addPost = async (postData) => {
         const response = await axios.post(`${API_URL}/posts/`, postData);
         setState((prevState) => ({
             ...prevState,
             posts: [...prevState.posts, response.data],
+        }));
+    }
+
+    async function deletePost(id) {
+        await axios.delete(`${API_URL}/posts/${id}`);
+        setState((prevState) => ({
+            ...prevState,
+            posts: state.posts.filter((item) => item.id !== id),
         }));
     }
 
@@ -54,8 +72,17 @@ const GlobalProvider = ({children}) => {
         }));
     }
 
+    async function deleteTicket(id) {
+        await axios.delete(`${API_URL}/tickets/${id}`);
+        setState((prevState) => ({
+            ...prevState,
+            tickets: state.tickets.filter((item) => item.id !== id),
+        }));
+    }
+
+    
     return(
-        <Context.Provider value={{state, addProject, addPost, addTicket}} >
+        <Context.Provider value={{state, addProject, addPost, addTicket, deleteProject, deletePost, deleteTicket}} >
             {children}
         </Context.Provider>
     )

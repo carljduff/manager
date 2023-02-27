@@ -5,3 +5,12 @@
     align-items: center;
     gap: 10px;
 }
+
+.delete {
+    margin-left: 5px;
+}
+
+.icons {
+    margin-left: 5px;
+    cursor: pointer;
+}
