@@ -49,25 +49,25 @@ const Projects = () => {
       };
         return(
             <>
-            <Button variant="primary" onClick={handleShow}>
-        Add Project
-      </Button>
+            <span onClick={handleShow}><i className="fa-solid fa-circle-plus add-btn"></i></span>
+     
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Add A New Project</Offcanvas.Title>
+          <h3 className="add-title">Add A New Project</h3>
         </Offcanvas.Header>
         <Offcanvas.Body>
-            <form onSubmit={handleSubmit}>
-                <label>Project Name:</label>
-                <input type="text" name="title" value={formValue.title} onChange={handleChange} />
-                <label>JIRA Name:</label>
-                <input type="text" name="jira" value={formValue.jira} onChange={handleChange} />
-                <label>Mockup Name:</label>
-                <input type="text" name="mockup" value={formValue.mockup} onChange={handleChange} />
-                <label>Confluence Name:</label>
-                <input type="text" name="confluence" value={formValue.confluence} onChange={handleChange} />
-                <input type="submit"/>
+            <form className="project-form" onSubmit={handleSubmit}>
+                {/* <label>Project Name:</label> */}
+                <input type="text" name="title" placeholder="Project Name" value={formValue.title} onChange={handleChange} />
+                {/* <label>JIRA Name:</label> */}
+                <input type="text" name="jira" placeholder="JIRA Link" value={formValue.jira} onChange={handleChange} />
+                {/* <label>Mockup Name:</label> */}
+                <input type="text" name="mockup" placeholder="Mockup Link" value={formValue.mockup} onChange={handleChange} />
+                {/* <label>Confluence Name:</label> */}
+                <input type="text" name="confluence" placeholder="Confluence Link" value={formValue.confluence} onChange={handleChange} />
+                {/* <input type="submit"/> */}
+                <Button variant="primary" type="submit">Submit</Button>
 
             </form>
           

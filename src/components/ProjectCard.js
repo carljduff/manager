@@ -12,13 +12,19 @@ const ProjectCard = ({id, title, jira, mockup, conf}) => {
     return(
         <Card style={{ width: '18rem' }}>
             <Card.Body>
-            <Card.Title>{title}</Card.Title>
-            <Card.Text>JIRA: {jira}</Card.Text>
-            <Card.Text>Mockup: {mockup}</Card.Text>
-            <Card.Text>Confluence: {conf} </Card.Text>
+            <h3 className='project-title'>{title}</h3> 
 
-            <Link to={`/project/${id}`}><Button variant="primary">View Project</Button></Link>
-         <Button onClick={() => deleteProject(id)} className='delete'>Delete</Button>
+          <div className='link-wrapper'>
+            <a className="project-links" href={jira}>| JIRA |</a>
+            <a className="project-links" href={mockup}>Mockup |</a>
+            <a className="project-links" href={conf}>Confluence |</a>
+          </div>
+
+          <div className='project-btn-wrapper'>
+            <Link to={`/project/${id}`}><i className="fa-solid fa-eye view-icon"></i></Link>
+            <span onClick={() => deleteProject(id)} className='delete'><i className="fa-solid fa-trash-can icons"></i></span>
+          </div>
+
             </Card.Body>
       </Card>
 

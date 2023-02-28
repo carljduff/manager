@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { Context } from "../GlobalState";
 import PostCard from "./PostCard";
 import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
 import Modal from 'react-bootstrap/Modal';
 import TextEditor from "./TextEditor";
 
